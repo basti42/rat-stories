@@ -1,23 +1,19 @@
 package repository
 
 import (
-	"io/fs"
+	"fmt"
 	"log"
-	"os"
 
 	"github.com/basti42/stories-service/internal/models"
 	"github.com/basti42/stories-service/internal/system"
-	sqlite "gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 func GetDatabaseConnection() *gorm.DB {
-	// TODO find better permission bits
-	if err := os.MkdirAll(system.DB_PATH, fs.ModePerm); err != nil {
-		log.Panicf("error creating stories db directory: %v", err)
-	}
-
-	db, err := gorm.Open(sqlite.Open("./data/stories.db"), &gorm.Config{})
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
+		system.DB_SERVER, system.DATABASE_USER, system.DATABASE_PASSWORD, system.DATABASE, system.DB_PORT)
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Panicf("error creating stories table: %v", err)
 	}
