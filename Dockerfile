@@ -1,24 +1,23 @@
-#  Development
-FROM golang:1.23 as dev
-
-WORKDIR /server
-
 # Build
-FROM golang:1.23 as build
-WORKDIR /server
+FROM golang:1.23 AS builder
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
 
 COPY . .
 
-RUN go mod tidy
-RUN CGO_ENABLED=1 GOOS=linux go build -v -o / /server/...
+RUN CGO_ENABLED=0 GOOS=linux go build -a --installsuffix cgo -o main .
 
 # Production
-FROM debian:bookworm-slim as prod
-WORKDIR /
+FROM alpine:3.20 AS prod
 
-COPY --from=build /stories-service /stories-service
+# install necessary certificates
+RUN apk --no-cache add ca-certificates
 
-# Install tls certificates
-RUN apt-get update && apt-get install -y ca-certificates
+WORKDIR /root/
 
-CMD ["/stories-service"]
+COPY --from=builder /app/main .
+
+CMD ["./main"]
