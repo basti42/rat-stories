@@ -8,6 +8,7 @@ import (
 	"github.com/basti42/stories-service/internal/middlewares"
 	"github.com/basti42/stories-service/internal/repository"
 	"github.com/basti42/stories-service/internal/system"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,6 +20,7 @@ func main() {
 	app := application.NewApplication(db)
 
 	router.GET("/health", app.Health)
+	router.Use(cors.Default())
 
 	// TODO middleware to handle access, once auth is in place
 

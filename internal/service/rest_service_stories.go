@@ -63,6 +63,7 @@ func (svc *RestService) HandleListStories(c *gin.Context) ([]models.Story, error
 func (svc *RestService) HandleAddNewStory(c *gin.Context) (models.Story, error) {
 	var newStory models.NewStory
 	if err := c.BindJSON(&newStory); err != nil {
+		slog.Error("error binding JSON POST request: ", err)
 		return models.Story{}, err
 	}
 
@@ -103,6 +104,7 @@ func (svc *RestService) HandleAddNewStory(c *gin.Context) (models.Story, error) 
 
 	story, err = svc.repo.AddNewStory(story)
 	if err != nil {
+		slog.Error("error adding story to db: ", err)
 		return models.Story{}, err
 	}
 
