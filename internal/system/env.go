@@ -13,6 +13,7 @@ var (
 	DB_NAME      = mustExist("DB_NAME")
 	DB_USER      = mustExist("DB_USER")
 	DB_PASSWORD  = mustExist("DB_PASSWORD")
+	JWT_SECRET   = mustExist("JWT_SECRET")
 )
 
 func mustExist(envVar string) string {
