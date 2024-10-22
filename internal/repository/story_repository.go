@@ -14,6 +14,7 @@ func (repo *StoriesRepository) ListStories(userUUID uuid.UUID, offset, limit int
 		Preload("AcceptanceCriteria").
 		Preload("History").
 		Where("creator = ?", userUUID).
+		Order("created_at desc").
 		Offset(offset).
 		Limit(limit).
 		Find(&stories)
@@ -41,7 +42,8 @@ func (repo *StoriesRepository) GetStory(storyUUID, userUUID uuid.UUID) (*models.
 	if tx := repo.db.
 		Preload("AcceptanceCriteria").
 		Preload("History").
-		First(&story).Where("uuid = ? AND creator = ?", storyUUID, userUUID); tx.Error != nil {
+		Where("uuid = ? AND creator = ?", storyUUID, userUUID).
+		First(&story); tx.Error != nil {
 		slog.Warn(fmt.Sprintf("error retrieving story=%v from database: %v", storyUUID, tx.Error))
 		return nil, tx.Error
 	}
