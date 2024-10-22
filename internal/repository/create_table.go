@@ -12,7 +12,7 @@ import (
 
 func GetDatabaseConnection() *gorm.DB {
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
-		system.DB_SERVER, system.DATABASE_USER, system.DATABASE_PASSWORD, system.DATABASE, system.DB_PORT)
+		system.DB_HOST, system.DB_USER, system.DB_PASSWORD, system.DB_NAME, system.DB_PORT)
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Panicf("error creating stories table: %v", err)

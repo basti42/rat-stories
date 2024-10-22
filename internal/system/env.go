@@ -6,13 +6,13 @@ import (
 )
 
 var (
-	PORT              = mustExist("PORT")
-	SERVICE_NAME      = mustExist("SERVICE_NAME")
-	DB_SERVER         = mustExist("DB_SERVER")
-	DB_PORT           = mustExist("DB_PORT")
-	DATABASE          = mustExist("DATABASE")
-	DATABASE_USER     = mustExist("DATABASE_USER")
-	DATABASE_PASSWORD = mustExist("DATABASE_PASSWORD")
+	PORT         = mustExist("PORT")
+	SERVICE_NAME = mustExist("SERVICE_NAME")
+	DB_HOST      = mustExist("DB_HOST")
+	DB_PORT      = mustExist("DB_PORT")
+	DB_NAME      = mustExist("DB_NAME")
+	DB_USER      = mustExist("DB_USER")
+	DB_PASSWORD  = mustExist("DB_PASSWORD")
 )
 
 func mustExist(envVar string) string {
