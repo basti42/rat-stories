@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
 type Tabler interface {
@@ -26,6 +27,7 @@ type Story struct {
 	Estimation         *Estimation           `json:"estimation" gorm:"foreignKey:StoryUUID"`
 	AcceptanceCriteria []AcceptanceCriterium `json:"acceptance_criteria" gorm:"foreignKey:StoryUUID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	History            []StoryHistory        `json:"history" gorm:"foreignKey:StoryUUID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Comments           []Comment             `json:"comments" gorm:"foriegnKey:StoryUUID;contraint:OnUpdate:CASCASE,OnDelete:SET NULL;"`
 }
 
 func (Story) TableName() string { return "stories" }
@@ -60,3 +62,12 @@ type StoryHistory struct {
 }
 
 func (StoryHistory) TableName() string { return "story_history" }
+
+type Comment struct {
+	gorm.Model
+	StoryUUID uuid.UUID `json:"story_uuid"`
+	UserUUID  uuid.UUID `json:"user_uuid"`
+	Text      string    `json:"text"`
+}
+
+func (Comment) TableName() string { return "comments" }

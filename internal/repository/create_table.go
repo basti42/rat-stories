@@ -18,7 +18,8 @@ func GetDatabaseConnection() *gorm.DB {
 		log.Panicf("error creating stories table: %v", err)
 	}
 
-	if err = db.AutoMigrate(&models.Story{}, &models.Estimation{}, &models.AcceptanceCriterium{}, &models.StoryHistory{}); err != nil {
+	if err = db.AutoMigrate(&models.Story{}, &models.Estimation{},
+		&models.AcceptanceCriterium{}, &models.StoryHistory{}, &models.Comment{}); err != nil {
 		log.Panicf("error migrating stories DB: %v", err)
 	}
 

@@ -64,22 +64,22 @@ func UserValidationMiddleware() gin.HandlerFunc {
 
 		userUUIDstring, ok := data["user_uuid"].(string)
 		if !ok {
-			log.Printf("mising: user-uuid")
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "mising payload in jwt"})
+			log.Printf("missing: user-uuid")
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "missing payload in jwt"})
 			return
 		}
 
 		subscriptionType, ok := data["subscription_type"].(string)
 		if !ok {
-			log.Printf("mising: subscription type")
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "mising payload in jwt"})
+			log.Printf("missing: subscription type")
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "missing payload in jwt"})
 			return
 		}
 
 		userRole, ok := data["role"].(string)
 		if !ok {
-			log.Printf("mising: user-role")
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "mising payload in jwt"})
+			log.Printf("missing: user-role")
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "missing payload in jwt"})
 			return
 		}
 
