@@ -13,6 +13,7 @@ type Tabler interface {
 
 type Story struct {
 	UUID               uuid.UUID             `gorm:"primaryKey" json:"uuid"`
+	Type               string                `json:"type"`
 	Creator            uuid.UUID             `json:"creator"`
 	Assignee           *uuid.UUID            `gorm:"null" json:"assignee"`
 	Team               *uuid.UUID            `gorm:"null" json:"team"`

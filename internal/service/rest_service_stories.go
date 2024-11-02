@@ -72,12 +72,17 @@ func (svc *RestService) HandleAddNewStory(c *gin.Context) (models.Story, error) 
 		return models.Story{}, errors.New("no valid user from request")
 	}
 
+	if newStory.Type == "" {
+		newStory.Type = "story"
+	}
+
 	storyUUID, _ := uuid.NewRandom()
 	historyUUID, _ := uuid.NewRandom()
 	now := time.Now().UTC()
 
 	story := &models.Story{
 		UUID:               storyUUID,
+		Type:               newStory.Type,
 		Creator:            userUUID,
 		Assignee:           newStory.Assignee,
 		Team:               newStory.Team,
