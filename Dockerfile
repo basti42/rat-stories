@@ -8,8 +8,8 @@ RUN go mod download
 
 COPY . .
 
-# cgo enabled must be true, do to sqlite requirement
-RUN CGO_ENABLED=1 GOOS=linux go build -a --installsuffix cgo -o main .
+# cgo enabled must be true, when using sqlite
+RUN CGO_ENABLED=0 GOOS=linux go build -a --installsuffix cgo -o main .
 
 # Production
 FROM alpine:3.20 AS prod

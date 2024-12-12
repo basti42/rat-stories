@@ -5,6 +5,7 @@ import (
 )
 
 type NewStory struct {
+	Type               string                `json:"type,omitempty"`
 	Assignee           *uuid.UUID            `json:"assignee,omitempty"`
 	Team               *uuid.UUID            `json:"team,omitempty"`
 	Project            *uuid.UUID            `json:"project,omitempty"`
